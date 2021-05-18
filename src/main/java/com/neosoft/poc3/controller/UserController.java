@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.neosoft.poc3.exception.ResourceNotFoundException;
 import com.neosoft.poc3.model.User;
 import com.neosoft.poc3.serviceImpl.UserSericeImpl;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/v1/userServiceManagement")
@@ -29,7 +29,7 @@ public class UserController {
 	UserSericeImpl userService;
 
 	@PostMapping("/user")
-
+	@ApiOperation(value = "add user in database")
 	public User createUser(@RequestBody User user) {
 
 		return userService.createUser(user);
@@ -37,6 +37,8 @@ public class UserController {
 	}
 
 	@GetMapping("/users")
+	@ApiOperation(value = "get all user details information")
+	
 	public List<User> getAllusers() {
 
 		List<User> list = userService.getAll();
@@ -44,6 +46,7 @@ public class UserController {
 	}
 
 	@GetMapping("/sortByDob")
+	@ApiOperation(value = "sort user by date of birth")
 	public List<User> sortUsersByDateOfBirth() {
 
 		List<User> sortByDob = userService.sortUserByDob();
@@ -51,6 +54,7 @@ public class UserController {
 	}
 
 	@GetMapping("/sortByDoj")
+	@ApiOperation(value = "sort user by date of joining")
 	public List<User> sortUsersByDateOfJoining() {
 
 		List<User> sortByDoj = userService.sortUserByDoj();
@@ -58,6 +62,7 @@ public class UserController {
 	}
 
 	@GetMapping("/getusers/{byFirstName}")
+	@ApiOperation(value = "get user by first name")
 	public List<User> getUserByFirstName(@PathVariable(value = "byFirstName") String name) {
 
 		List<User> users = userService.findByfirstName(name);
@@ -65,6 +70,7 @@ public class UserController {
 	}
 
 	@GetMapping("/getuser/{byLastName}")
+	@ApiOperation(value = "get user by last name")
 	public List<User> getUserByLastName(@PathVariable(value = "byLastName") String name) {
 
 		List<User> users = userService.findBylastName(name);
@@ -72,6 +78,7 @@ public class UserController {
 	}
 
 	@GetMapping("/getuserby/{byPincode}")
+	@ApiOperation(value = "get user by its pincode")
 	public List<User> getUserByPinCode(@PathVariable(value = "byPincode") int pincode) {
 
 		List<User> sortByDoj = userService.findByPincode(pincode);
@@ -79,6 +86,7 @@ public class UserController {
 	}
 
 	@GetMapping("/userbyid/{id}")
+	@ApiOperation(value = "get user by its id")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") int userId) {
 
 		User user = userService.getUserById(userId);
@@ -87,6 +95,7 @@ public class UserController {
 	}
 
 	@PutMapping("/edituser/{id}")
+	@ApiOperation(value = "update user by id")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id, @RequestBody User userDetails) {
 
 		System.out.println(userDetails);
@@ -97,7 +106,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/deleteuser/{id}")
-
+	@ApiOperation(value = "delete user by id")
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") int id) {
 		User user = userService.deleteUserById(id);
 
@@ -107,6 +116,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/user/soft/{id}")
+	@ApiOperation(value = "delete user by id but just value change(soft delete)")
 	public ResponseEntity<String> softDelete(@PathVariable(value = "id") int id) {
 
 		System.out.println(id);
@@ -116,6 +126,7 @@ public class UserController {
 	}
 
 	@GetMapping("/users/{byname}/{bysurname}/{pincode}")
+	@ApiOperation(value = "get user by if name,surname and pincode is matched.")
 	public List<User> getAllbyNamebySurname(@PathVariable(value = "byname") String name,
 			@PathVariable(value = "bysurname") String surname, @PathVariable(value = "pincode") int pincode) {
 

@@ -24,7 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public List<User> findByPinCode(int pincode);
 
 	@Modifying
-
 	@Query("delete from User u where u.id=?1")
 	public User deleteById(int id);
 

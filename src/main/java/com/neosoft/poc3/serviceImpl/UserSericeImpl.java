@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class UserSericeImpl implements UserService {
 	public List<User> getAll() {
 
 		return userRepositary.findAll();
-		
+
 	}
 
 	@Override
@@ -31,6 +33,7 @@ public class UserSericeImpl implements UserService {
 	}
 
 	@Override
+
 	public User getUserById(int id) {
 		User user = userRepositary.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
