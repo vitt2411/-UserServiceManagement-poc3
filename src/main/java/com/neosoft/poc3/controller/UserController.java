@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/v1/userServiceManagement")
+@CrossOrigin("*")
 public class UserController {
 
 	@Autowired
@@ -30,15 +32,16 @@ public class UserController {
 
 	@PostMapping("/user")
 	@ApiOperation(value = "add user in database")
-	public User createUser(@RequestBody User user) {
+	public String createUser(@RequestBody User user) {
 
-		return userService.createUser(user);
+		 User user1 = userService.createUser(user);
+		 return "user added successfully";
 
 	}
 
 	@GetMapping("/users")
 	@ApiOperation(value = "get all user details information")
-	
+
 	public List<User> getAllusers() {
 
 		List<User> list = userService.getAll();
@@ -88,7 +91,7 @@ public class UserController {
 	@GetMapping("/userbyid/{id}")
 	@ApiOperation(value = "get user by its id")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") int userId) {
-
+		System.out.println(userId);
 		User user = userService.getUserById(userId);
 		return ResponseEntity.ok().body(user);
 

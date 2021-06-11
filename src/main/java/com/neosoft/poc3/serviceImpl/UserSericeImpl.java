@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.neosoft.poc3.dao.UserRepository;
@@ -28,8 +29,11 @@ public class UserSericeImpl implements UserService {
 
 	@Override
 	public User createUser(User user) {
+		
 
 		return userRepositary.save(user);
+		
+		
 	}
 
 	@Override
@@ -102,10 +106,16 @@ public class UserSericeImpl implements UserService {
 				.collect(Collectors.toList());
 
 		return sortedList;
+
 	}
 
 	@Override
 	public List<User> sortUserByDoj() {
+
+		/*
+		 * List<User> findAll = userRepositary.findAll(Sort.by(Sort.Direction.ASC,
+		 * "dateOfBirth")); return findAll;
+		 */
 
 		List<User> users = userRepositary.findAll();
 
@@ -113,6 +123,7 @@ public class UserSericeImpl implements UserService {
 				.collect(Collectors.toList());
 
 		return sortedList;
+
 	}
 
 	@Override

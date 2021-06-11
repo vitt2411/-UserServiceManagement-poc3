@@ -44,10 +44,10 @@ public class User {
 	@Column(name = "email_address", nullable = false)
 	private String emailID;
 
-	@JsonFormat(pattern = "dd-mm-yyyy")
+	@JsonFormat(pattern = "dd/mm/yyyy")
 	private String dateOfBirth;
 
-	@JsonFormat(pattern = "dd-mm-yyyy")
+	@JsonFormat(pattern = "dd/mm/yyyy")
 	private String dateOfJoining;
 	@JsonFormat
 	private int flagDelete;
